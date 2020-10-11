@@ -7,28 +7,33 @@ import static de.com.lio.domain.Constants.NEW_LINE;
 import static de.com.lio.domain.Constants.TEST;
 
 /**
- * Class that models a page data renderer. The add* methods of this class change only the builder attribute.
+ * Class that models a page data renderer. The mutator methods of this class (add*) change only the builder attribute.
  */
 public class PageDataRenderer {
     private PageData pageData;
     private boolean includeSuiteSetup;
     private StringBuilder builder;
 
-    public PageDataRenderer(boolean includeSuiteSetup) {
+    /**
+     * Creates a new instance of PageDataRenderer by defensively copying the PageData parameter to avoid side effects.
+     * This is to ensure idempotence and consistency.
+     * @param pageData The page data.
+     * @param includeSuiteSetup flag to determine if suite setup must be included.
+     */
+    public PageDataRenderer(PageData pageData, boolean includeSuiteSetup) {
         this.includeSuiteSetup = includeSuiteSetup;
+        this.pageData = PageData.of(pageData);
     }
 
     /**
      * Renders the page data HTML. Be aware that this method is idempotent and consistent.
-     * No side effects expected on the given parameter as it is defensively copied.
      *
-     * @param pageDataParam The Page data.
      * @return the page data properly rendered as HTML.
      * @throws RenderException if any error is caught, containing a contextual message and the root exception.
      */
-    public String renderHtml(PageData pageDataParam) throws RenderException {
+    public String renderHtml() throws RenderException {
         try {
-            initAttributes(pageDataParam);
+            initializeBuilder();
             addSetupSection(this.pageData, includeSuiteSetup, this.pageData.getWikiPage());
             addPageContent(this.pageData.getContent());
             addTearDownSection(this.pageData, includeSuiteSetup, this.pageData.getWikiPage());
@@ -40,14 +45,10 @@ public class PageDataRenderer {
     }
 
     /**
-     * Initializes the builder with a new StringBuilder instance and the PageData attribute
-     * with a defensive copy of the given parameter. This is to ensure idempotence and consistency.
-     *
-     * @param pageData The page data.
+     * Initializes the builder with a new StringBuilder instance.
      */
-    private void initAttributes(PageData pageData) {
+    private void initializeBuilder() {
         this.builder = new StringBuilder();
-        this.pageData = PageData.of(pageData);
     }
 
     /**

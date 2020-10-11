@@ -7,9 +7,15 @@ import static de.com.lio.domain.Constants.NEW_LINE;
 import static de.com.lio.domain.Constants.TEST;
 
 /**
- * Refactoring based on pure functions without any side-effects.
+ * Refactoring based on a utility class with pure functions without any side-effects.
  */
-public class RefactoringOne {
+public final class RefactoringOne {
+
+    /**
+     * To avoid instantiation from outside.
+     */
+    private RefactoringOne() {
+    }
 
     /**
      * Renders the page data HTML.

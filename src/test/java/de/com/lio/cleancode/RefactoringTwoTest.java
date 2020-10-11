@@ -8,7 +8,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static de.com.lio.util.TestUtils.EXECUTION_TIMES;
 
 /**
- * Unit test to ensure the proper functionality of the RefactoringTwoclass.
+ * Unit test to ensure the proper functionality of the RefactoringTwo class.
  */
 class RefactoringTwoTest {
     @ParameterizedTest(name = "{index} {0} with includeSuiteSetup={1}")

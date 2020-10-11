@@ -5,10 +5,17 @@ import de.com.lio.exception.RenderException;
 
 
 /**
- * Solution based on OOP refactorings like "Introduce Parameter objects", "Extract method", "Move method", etc.
- * In this approach, methods change only the state of its owning object.
+ * Solution based by introducing a new PageDataRenderer class that encapsulates the main logic, in conjunction with
+ * OOP refactorings like "Introduce Parameter objects", "Extract method", "Move method", etc.
+ * In this approach, methods change only the state of its owning object, i.e., PageDataRenderer.
  */
-public class RefactoringTwo {
+public final class RefactoringTwo {
+
+    /**
+     * To avoid instantiation from outside.
+     */
+    private RefactoringTwo() {
+    }
 
     /**
      * Renders the page data HTML.
@@ -18,6 +25,6 @@ public class RefactoringTwo {
      * @return the page data properly rendered as HTML.
      */
     public static String renderHtml(PageData pageData, boolean includeSuiteSetup) throws RenderException {
-        return new PageDataRenderer(includeSuiteSetup).renderHtml(pageData);
+        return new PageDataRenderer(pageData, includeSuiteSetup).renderHtml();
     }
 }

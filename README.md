@@ -3,14 +3,16 @@
 The purpose of this task is to refactor `de.com.lio.badcode.BadCode` class by using the software development best practices, refactoring techniques and Uncle Bob's recommendations.
 I present the following two solutions:
 
-## Pure functions approach.
-This solution is coded in ` de.com.lio.cleancode.RefactoringOne ` class, and basically the refactoring is done by using pure functions, this is, methods without any side effects, in order to ensure idempotence and consistency across different invocations.
+## Utility class with pure functions approach.
+This solution is coded in ` de.com.lio.cleancode.RefactoringOne ` class, and basically the refactoring is done by using an utility class with pure functions, i.e. methods without any side effects.
 
-## OOP refactorings approach.
-This solution is coded in ` de.com.lio.cleancode.RefactoringTwo ` class, and it is based on OOP general refactoring techniques like "Introduce Parameter objects", "Extract method", "Move method", etc.
-In this approach, methods change only the state of its owning object, this is, only inside ` de.com.lio.cleancode.PageDataRenderer ` class.
+## New PageDataRenderer class approach.
+This solution is coded in ` de.com.lio.cleancode.RefactoringTwo ` class, and it is based by introducing a new  `PageDataRenderer ` class that encapsulates the main logic, in conjunction with applying OOP refactoring techniques like "Introduce Parameter objects", "Extract method", "Move method", etc.
+In this approach, methods change only the state of its owning object, i.e. only inside ` de.com.lio.cleancode.PageDataRenderer ` class.
 
 ## General considerations
+
+- Consistency: both solutions ensure idempotence and consistency across different method invocations by effectively using defensive copies of parameters.
 
 - Exception handling: all the errors and exceptions are gracefully managed in the solutions and wrapped into higher level exceptions.
 
